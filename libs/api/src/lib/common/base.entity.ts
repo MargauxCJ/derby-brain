@@ -1,0 +1,20 @@
+import {
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Column,
+} from 'typeorm';
+
+export abstract class BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column({ default: true })
+  enabled!: boolean;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt!: Date;
+}

@@ -1,0 +1,8 @@
+{
+  "watch": ["apps/api", "libs"],
+  "ext": "ts,js,json",
+  "ignore": ["*.spec.ts", "node_modules", "dist"],
+  "exec": "npx nx build api && node dist/apps/api/main.js",
+  "legacyWatch": true,
+  "pollingInterval": 1000
+}
