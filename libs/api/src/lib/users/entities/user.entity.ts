@@ -1,7 +1,7 @@
-import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { BaseEntity } from '../../common/base.entity';
-import { IUser, MemberPosition, UserRole } from '@derby-brain/shared-utils';
-import { Team } from '../../clubs/entities/team.entity';
+import { IUser, UserRole } from '@derby-brain/shared-utils';
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class User extends BaseEntity implements IUser {
@@ -11,18 +11,13 @@ export class User extends BaseEntity implements IUser {
   @Column({ unique: true })
   email!: string;
 
+  @Exclude()
   @Column({ select: false })
   password!: string;
 
-  @Column({ nullable: true })
-  jerseyNum?: string;
-
-  @Column({ type: 'enum', enum: UserRole, default: UserRole.MEMBER_USER })
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.COACH })
   role!: UserRole;
 
-  @Column({ type: 'enum', enum: MemberPosition, nullable: true })
-  defaultPosition?: MemberPosition;
-
-  @ManyToMany(() => Team, (team) => team.members)
-  teams?: Team[];
+  @Column()
+  clubId!: number;
 }

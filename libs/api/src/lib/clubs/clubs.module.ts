@@ -1,14 +1,33 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Club } from './entities/club.entity';
-import { Team } from './entities/team.entity';
-import { ClubsService } from './clubs.service';
-import { ClubsController } from './clubs.controller';
+import { Club } from './club/club.entity';
+import { Team } from './team/team.entity';
+import { TeamController } from './team/team.controller';
+import { ClubService } from './club/club.service';
+import { ClubController } from './club/club.controller';
+import { TeamService } from './team/team.service';
+import { Member } from './member/member.entity';
+import { MemberController } from './member/member.controller';
+import { MemberService } from './member/member.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Club, Team])],
-  providers: [ClubsService],
-  exports: [ClubsService],
-  controllers: [ClubsController],
+  imports: [
+    TypeOrmModule.forFeature([Club, Team, Member]),
+  ],
+  controllers: [
+    ClubController,
+    TeamController,
+    MemberController,
+  ],
+  providers: [
+    ClubService,
+    TeamService,
+    MemberService,
+  ],
+  exports: [
+    ClubService,
+    TeamService,
+    MemberService,
+  ],
 })
 export class ClubsModule {}

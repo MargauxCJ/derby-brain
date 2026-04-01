@@ -9,6 +9,7 @@ export * from './lib/interfaces/matches/lineup.interface';
 export * from './lib/interfaces/matches/pair.interface';
 export * from './lib/interfaces/clubs/club.interface';
 export * from './lib/interfaces/clubs/team.interface';
+export * from './lib/interfaces/clubs/member.interface';
 export * from './lib/interfaces/users/user.interface';
 
 /** DTOS **/
@@ -24,6 +25,10 @@ export * from './lib/dtos/clubs/club/update-club.dto';
 // Team
 export * from './lib/dtos/clubs/team/create-team.dto';
 export * from './lib/dtos/clubs/team/update-team.dto';
+
+// Member
+export * from './lib/dtos/clubs/member/create-member.dto'
+export * from './lib/dtos/clubs/member/update-member.dto'
 
 // MATCHES
 // Game
@@ -53,3 +58,9 @@ export * from './lib/dtos/matches/lineup/update-lineup.dto'
 export * from './lib/dtos/users/create-user.dto'
 export * from './lib/dtos/users/update-user.dto'
 export * from './lib/dtos/users/change-password.dto'
+
+// LOFIN
+export * from './lib/dtos/auth/login.dto'
+
+// UTILS
+export * from './lib/interfaces/utils/request-with-user.interface'

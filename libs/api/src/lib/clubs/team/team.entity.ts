@@ -6,10 +6,10 @@ import {
   JoinTable,
   JoinColumn,
 } from 'typeorm';
-import { Club } from './club.entity';
-import { User } from '../../users/entities/user.entity';
+import { Club } from '../club/club.entity';
 import { ITeam } from '@derby-brain/shared-utils';
 import { BaseEntity } from '../../common/base.entity';
+import { Member } from '../member/member.entity';
 
 @Entity('teams')
 export class Team extends BaseEntity implements ITeam {
@@ -23,7 +23,10 @@ export class Team extends BaseEntity implements ITeam {
   @JoinColumn({ name: 'clubId' })
   club!: Club;
 
-  @ManyToMany(() => User, (user) => user.teams)
+  @ManyToOne(() => Member, (member) => member.team)
   @JoinTable({ name: 'team_members' })
-  members?: User[];
+  members?: Member[];
+
+  @Column({ default: false })
+  isOpponent!: boolean;
 }

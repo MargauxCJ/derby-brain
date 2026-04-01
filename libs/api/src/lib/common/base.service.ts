@@ -4,6 +4,7 @@ import {
   DeepPartial,
   FindManyOptions,
   ObjectLiteral,
+  FindOneOptions,
 } from 'typeorm';
 
 export abstract class BaseService<T extends ObjectLiteral> {
@@ -13,8 +14,12 @@ export abstract class BaseService<T extends ObjectLiteral> {
     return this.repository.find(options);
   }
 
-  async findOne(id: number | string): Promise<T> {
-    const item = await this.repository.findOneBy({ id } as any);
+  async findOne(id: number | string, options?: FindOneOptions<T>): Promise<T> {
+    const item = await this.repository.findOne({
+      where: { id } as any,
+      ...options,
+    });
+
     if (!item) {
       throw new NotFoundException(
         `L'enregistrement avec l'id ${id} n'existe pas.`,

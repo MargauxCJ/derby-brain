@@ -1,45 +1,33 @@
 import {
   Controller,
-  Get,
   Post,
+  Get,
   Body,
-  Param,
-  Delete,
-  Put,
-  ParseIntPipe,
+  UsePipes,
+  ValidationPipe,
+  ClassSerializerInterceptor,
+  UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
+import { CreateUserDto } from '@derby-brain/shared-utils';
+import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../modules/auth/guards/roles.guard';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
 
   @Get()
   findAll() {
     return this.usersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
-  }
-
-  @Post()
-  create(@Body() userData: Partial<User>) {
-    return this.usersService.create(userData as any);
-  }
-
-  @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() userData: Partial<User>,
-  ) {
-    return this.usersService.update(id, userData as any);
-  }
-
-  @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(id);
   }
 }

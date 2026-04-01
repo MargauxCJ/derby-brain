@@ -8,9 +8,9 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { BaseEntity } from '../../common/base.entity';
-import { Game } from './game.entity';
-import { Club } from '../../clubs/entities/club.entity';
-import { Team } from '../../clubs/entities/team.entity';
+import { Game } from '../game/game.entity';
+import { Club } from '../../clubs/club/club.entity';
+import { Team } from '../../clubs/team/team.entity';
 import { User } from '../../users/entities/user.entity';
 import { IEvent } from '@derby-brain/shared-utils';
 

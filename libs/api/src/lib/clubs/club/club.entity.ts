@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany } from 'typeorm';
-import { Team } from './team.entity';
-import { Event } from '../../matches/entities/event.entity';
+import { Team } from '../team/team.entity';
+import { Event } from '../../matches/event/event.entity';
 import { BaseEntity } from '../../common/base.entity';
 import { IClub } from '@derby-brain/shared-utils';
 

@@ -1,30 +1,4 @@
-import {
-  IsOptional,
-  IsString,
-  IsDateString,
-  IsArray,
-  IsInt,
-} from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateEventDto } from './create-event.dto';
 
-export class UpdateEventDto {
-  @IsString()
-  @IsOptional()
-  name?: string;
-
-  @IsDateString()
-  @IsOptional()
-  startDate?: string;
-
-  @IsDateString()
-  @IsOptional()
-  endDate?: string;
-
-  @IsString()
-  @IsOptional()
-  location?: string;
-
-  @IsArray()
-  @IsInt({ each: true })
-  @IsOptional()
-  teamIds?: number[];
-}
+export class UpdateEventDto extends PartialType(CreateEventDto) {}

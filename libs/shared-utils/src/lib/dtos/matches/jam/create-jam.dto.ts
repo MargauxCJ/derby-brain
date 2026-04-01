@@ -1,4 +1,12 @@
-import { IsInt, IsNotEmpty, IsBoolean, IsOptional, Min } from 'class-validator';
+// libs/shared-utils/src/lib/dtos/matches/jam/create-jam.dto.ts
+import {
+  IsInt,
+  IsNotEmpty,
+  IsBoolean,
+  IsOptional,
+  Min,
+  IsArray,
+} from 'class-validator';
 
 export class CreateJamDto {
   @IsInt()
@@ -11,16 +19,17 @@ export class CreateJamDto {
   jamNumber!: number;
 
   @IsInt()
-  @IsOptional()
-  jammerId?: number;
+  @IsNotEmpty()
+  jammerId!: number;
 
   @IsInt()
   @IsOptional()
-  pair1Id?: number;
+  pivotId?: number;
 
-  @IsInt()
+  @IsArray()
+  @IsInt({ each: true })
   @IsOptional()
-  pair2Id?: number;
+  blockerIds?: number[];
 
   @IsInt()
   @IsOptional()
@@ -34,5 +43,5 @@ export class CreateJamDto {
 
   @IsBoolean()
   @IsOptional()
-  lead?: boolean = false;
+  isLead?: boolean = false;
 }

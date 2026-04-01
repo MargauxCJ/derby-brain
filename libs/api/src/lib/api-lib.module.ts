@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MatchesModule } from './matches/matches.module';
 import { ClubsModule } from './clubs/clubs.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     ClubsModule,
     MatchesModule,
+    AuthModule,
   ],
 })
 export class ApiLibModule {}

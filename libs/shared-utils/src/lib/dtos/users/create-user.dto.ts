@@ -1,4 +1,3 @@
-// libs/shared/src/lib/dto/user/create-user.dto.ts
 import {
   IsEmail,
   IsEnum,
@@ -28,7 +27,7 @@ export class CreateUserDto {
 
   @IsEnum(UserRole)
   @IsOptional()
-  role?: UserRole = UserRole.MEMBER_USER;
+  role?: UserRole = UserRole.MEMBER;
 
   @IsEnum(MemberPosition)
   @IsOptional()

@@ -1,27 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcryptjs';
 import { User } from './entities/user.entity';
-import { BaseService } from '../common/base.service';
+import { CreateUserDto } from '@derby-brain/shared-utils';
 
 @Injectable()
-export class UsersService extends BaseService<User> {
+export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {
-    super(userRepository);
-  }
+  ) {}
 
-  async findByEmail(email: string): Promise<User | null> {
-    return this.userRepository.findOne({
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const { email, password, ...rest } = createUserDto;
+
+    const existingUser = await this.userRepository.findOne({
       where: { email },
     });
+    if (existingUser) {
+      throw new ConflictException('Cet email est déjà utilisé');
+    }
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = this.userRepository.create({
+      ...rest,
+      email,
+      password: hashedPassword,
+    });
+
+    return await this.userRepository.save(user);
   }
 
-  override async findAll(): Promise<User[]> {
-    return this.userRepository.find({
-      relations: ['teams'],
-    });
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
   }
 }

@@ -1,7 +1,8 @@
 export enum UserRole {
   ADMIN = 'ADMIN',
-  COACH_USER = 'COACH_USER',
-  MEMBER_USER = 'MEMBER_USER',
+  COACH = 'COACH',
+  MEMBER = 'MEMBER',
+  STAFF = 'STAFF',
 }
 
 export enum MemberPosition {

@@ -1,13 +1,18 @@
-import { IsArray, IsInt, IsOptional } from 'class-validator';
+import { IsArray, IsEnum, IsInt, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+import { MemberPosition } from '../../../enums/enums';
+
+class LineupMemberInput {
+  @IsInt()
+  userId!: number;
+
+  @IsEnum(MemberPosition)
+  role!: MemberPosition;
+}
 
 export class UpdateLineupDto {
   @IsArray()
-  @IsInt({ each: true })
-  @IsOptional()
-  memberIds?: number[];
-
-  @IsArray()
-  @IsInt({ each: true })
-  @IsOptional()
-  jamIds?: number[];
+  @ValidateNested({ each: true })
+  @Type(() => LineupMemberInput)
+  members!: LineupMemberInput[];
 }

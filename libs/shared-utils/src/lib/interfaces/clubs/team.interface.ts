@@ -1,7 +1,7 @@
-import { IClub } from './club.interface';
-import { IUser } from '../users/user.interface';
-import { IGame } from '../matches/game.interface';
 import { IBase } from '../base.interface';
+import { IClub } from './club.interface';
+import { IMember } from './member.interface';
+import { IGame } from '../matches/game.interface';
 
 export interface ITeam extends IBase {
   name: string;
@@ -9,6 +9,6 @@ export interface ITeam extends IBase {
   logo?: string;
 
   club?: IClub;
-  members?: IUser[];
+  members?: IMember[];
   games?: IGame[];
 }
